@@ -1,6 +1,5 @@
 package org.nihab.molaserver.controller;
 
-
 import org.nihab.molaserver.model.MolaModel;
 
 import lombok.Data;

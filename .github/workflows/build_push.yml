@@ -27,6 +27,13 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Login to abcdevreg Registry
       run: echo ${{ secrets.ABCREG_PASSWORD }} | docker login -u ${{ secrets.ABCREG_USERNAME }} --password-stdin abcdevreg.azurecr.io
+    - name: Get the version
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    - name: Build the tagged Docker image
+      run: docker build . --file Dockerfile --tag abcdevreg.azurecr.io/nihab/mola-service-api:${{steps.vars.outputs.tag}}
+    - name: Push the tagged Docker image
+      run: docker push abcdevreg.azurecr.io/nihab/mola-service-api:${{steps.vars.outputs.tag}}
     - name: Build the latest Docker image to AZURE 
       run: docker build . --file Dockerfile --tag abcdevreg.azurecr.io/nihab/mola-service-api:latest
     - name: Push the latest Docker image to AZURE 

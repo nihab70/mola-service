@@ -31,7 +31,7 @@ public class SwaggerConfig {
 		return new ApiInfoBuilder().title("MoLa API")
 				.description("Test for money laundry API")
 				.termsOfServiceUrl("http://nihab.org")
-				.license("Nohab Free")
+				.license("Nihab Free")
 				.licenseUrl("nihab@me.com").version("1.0").build();
 	}
 

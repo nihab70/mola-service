@@ -23,11 +23,9 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Build the tagged Docker image
-      run: docker build . --file Dockerfile --tag nihab/mola-service-api:${{steps.vars.outputs.tag}}
-    - name: Push the tagged Docker image
-      run: docker push nihab/mola-service-api:${{steps.vars.outputs.tag}}
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.ABCREG_PASSWORD }} | docker login -u ${{ secrets.ABCREG_USERNAME }} --password-stdin abcdevreg.azurecr.io
     - name: Build the latest Docker image
-      run: docker build . --file Dockerfile --tag nihab/mola-service-api:latest
+      run: docker build . --file Dockerfile --tag abcdevreg.azurecr.io/nihab/mola-service-api:latest
     - name: Push the latest Docker image
-      run: docker push nihab/mola-service-api:latest
+      run: docker push abcdevreg.azurecr.io/nihab/mola-service-api:latest
